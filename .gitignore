@@ -12,6 +12,7 @@ src/topnav.js
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
