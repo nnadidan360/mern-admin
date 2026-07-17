@@ -2,7 +2,7 @@ name: Production Deployment
 
 on:
   push:
-    branches: [frontend]
+    branches: [main]
   workflow_dispatch:
 
 env:
@@ -16,22 +16,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'pnpm'
+          cache: 'npm'
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
       - name: Install Dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: npm install
 
       - name: Pull Vercel Environment Info
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
